@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .progressbar-outer{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+        .progressbar-inner{
+            height: 4px;
+            border-radius: 2px;
+            background: lightcoral;
+            width: 0%;
+            transition: width 1s, opacity 0.5s 1s;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+<script>
+    class ProgressBar{                                      //构造一个progressbar类,类似构造函数
+        constructor(){                                      //constructor方法是类的默认方法。一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加。默认返回实例对象（即this），完全可以指定返回另外一个对象。
+            this.curr = 0;                                  //创建属性curr值为0
+            this.outer = document.createElement('div');     //创建属性outer
+            this.inner = document.createElement('div');     //创建属性inner
+            this.outer.appendChild(this.inner);             
+            this.outer.className = 'progressbar-outer';
+            this.inner.className = 'progressbar-inner';
+        }
+
+        set(val){                                           //构造set方法，有一个val参数
+            this.curr = val;
+            this.inner.style.width = this.curr + '%';
+        }
+
+        start(){                                            //构造开始方法
+            this.set(5);
+            document.body.appendChild(this.outer);          //把outer元素置入body元素中
+        }
+
+        end(){                                              //构造结束方法
+            this.set(100);
+            this.inner.style.opacity = '0';
+            setTimeout(()=>{                                //用setTimeout方法在1.5秒后移除outer元素
+                document.body.removeChild(this.outer);
+            },1500);
+        }
+
+        increase(val){                                      //构造增加方法
+            this.set(this.curr + val);
+        }
+    }
+</script>
+
+</html>

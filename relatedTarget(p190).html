@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            border: 2px solid;
+        }
+        p{
+            background-color: red;
+            margin: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam aut, 
+            sint ullam odio facere nemo ea corporis expedita. 
+            Veritatis animi mollitia ex dolor illum debitis asperiores perspiciatis reiciendis, officiis consequatur!
+        </p>
+    </div>
+    <script>
+        var div = document.querySelector('div');
+        var p = document.querySelector('p');
+        function isInside(node,target){
+            // while(node != null){
+            //     if(node == target){
+            //         return true;
+            //     }
+            //     node = node.parentNode;
+            // }
+            for(;node != null;node = node.parentNode){
+                if(node == target) return true;
+            }
+        }
+        div.addEventListener('mouseover',function(event){
+            if(!isInside(event.relatedTarget,div)){         //在mouseover事件中，event.relatedTarget指向的刚才走过的元素
+                div.style.backgroundColor = 'tan';          
+            }
+        })
+        div.addEventListener('mouseout',function(event){
+            if(!isInside(event.relatedTarget,div)){         //在mouseout事件中，event.relatedTarget指向的是要去的元素
+                div.style.backgroundColor = '';
+            }
+        })
+        p.addEventListener('mouseenter',function(event){    //mouseenter/leave可以替代mouseover/out，避免很多坑，同时enter和leave不会冒泡
+            p.style.color = 'blue';
+        })
+        p.addEventListener('mouseleave',function(event){
+            p.style.color = 'black';
+        })
+    </script>
+</body>
+</html>

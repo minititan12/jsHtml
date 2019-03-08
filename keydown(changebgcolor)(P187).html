@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            background-color: red;
+            text-align: center;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span>middle</span>
+    </div>
+</body>
+<script>
+    var div = document.querySelector('div');
+    addEventListener('keydown',function(event){
+        if(event.key == 'b'){
+            console.log('blue');
+            div.style.backgroundColor = 'blue';
+        }
+        if(event.key == 't'){
+            console.log('tan');
+            div.style.backgroundColor = 'tan';
+        }
+        if(event.key == 'g'){
+            console.log('green');
+            div.style.backgroundColor = 'green';
+        }
+    })
+</script>
+</html>

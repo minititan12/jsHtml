@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body>div{
+            margin-top: 100px;
+            margin-left: 150px;
+            text-align: center;
+        }
+        .cat{
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            font-size: 8px;
+        }
+
+        .cat span {
+            line-height: 30px;
+        }
+        .hat{
+            position: absolute;
+            margin-top: 7.5px;
+            margin-left: 7.5px;
+            width: 15px;
+            height: 15px;
+            background-color: tan;
+            font-size: 8px;
+            line-height: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="cat">
+            <span>cat</span>
+            <div class="hat">hat</div>
+        </div>
+    </div>
+    
+</body>
+<script>
+    var cat = document.querySelector('.cat');
+    var hat = document.querySelector('.hat');
+
+    function hatAnimation(time){
+        hat.style.top = Math.cos(time * 0.001) * 30 + 'px';
+        hat.style.left = Math.sin(time * 0.001) * 30 + 'px';
+        requestAnimationFrame(hatAnimation);
+    }
+
+    function catAnimation(time){
+        cat.style.top = Math.cos(time * 0.001) * 30 + 'px';
+        cat.style.left = Math.sin(time * 0.001) * 100 + 'px';
+        hatAnimation();
+        requestAnimationFrame(catAnimation);
+    }
+    
+    requestAnimationFrame(catAnimation);
+</script>
+</html>

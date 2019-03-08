@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        span{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .draggable{
+            position: absolute;
+            border: 1px solid;
+            background: violet;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <span>aaaa</span>
+    <div class="draggable" style="top:0; left:0;"></div>
+    <div class="draggable" style="top:0; left:0;"></div>
+    <div class="draggable" style="top:0; left:0;"></div>
+    <div class="draggable" style="top:0; left:0;"></div>
+</body>
+<script>
+    var mousePrevX;
+    var mousePrevY;
+    var el;
+    var maxZ = 0;
+
+    function move(e){
+        let dx = e.clientX - mousePrevX;
+        let dy = e.clientY - mousePrevY;
+        // mousePrevX = e.clientX;
+        // mousePrevY = e.clientY;
+        var top = elY + dy;
+        var left = elX + dx;
+        if(top < 30){
+            top = 0;
+        }
+        if(top > innerHeight - 132){
+            top = innerHeight -102
+        }
+        if(left < 30){
+            left = 0;
+        }
+        if(left > innerWidth - 132){
+            left = innerWidth - 102;
+        }
+        el.style.top = top + 'px';
+        el.style.left = left + 'px';
+    }
+
+    document.addEventListener('mousedown',function(e){
+        if(e.target.classList.contains('draggable')){
+            el = e.target;
+            el.style.zIndex = maxZ++;
+            mousePrevX = e.clientX;
+            mousePrevY = e.clientY;
+            elX = parseInt(el.style.left);
+            elY = parseInt(el.style.top);
+            window.addEventListener('mousemove',move);
+        }
+        
+    })
+
+    window.addEventListener('mouseup',function(e){
+        el = null;
+        window.removeEventListener('mousemove',move);
+    })
+</script>
+</html>

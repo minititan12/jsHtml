@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <p>hover over this <strong>paragraph</strong>.</p>
+    <script>
+        var para = document.querySelector('p');
+
+        function isInside(node,target){
+            while(node != null){
+                if(node == target){
+                    return true;
+                }
+                node = node.parentNode;
+            }
+        }
+
+        para.addEventListener('mouseover',function(event){
+            if(!isInside(event.relatedTarget,para)){
+                para.style.color = 'red';
+            }
+        });
+
+        para.addEventListener('mouseout',function(event){
+            if(!isInside(event.relatedTarget,para)){
+                para.style.color = '';
+            }
+        });
+    </script>
+</body>
+</html>

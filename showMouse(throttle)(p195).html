@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function displayCoords(event){                      //显示鼠标位置
+            document.body.textContent = 'Mouse At' + event.pageX + ',' + event.pageY;
+        }
+
+        var scheduled = false, lastEvent;                   //创建变量scheduled(安排)，lastEvent(上一个事件)
+        addEventListener('mousemove',function(event){
+            lastEvent = event;                              //把event赋值到lastevent
+            if(!scheduled){                                 //如果scheduled为false的时候,就是还未显示位置的时候
+                scheduled = true;                           //让scheduled为true,让在setTimeout完成前不会再进入到这个判断语句中
+                setTimeout(function(){                      //在250毫秒后显示位置并让接下来的mousemove事件重新进入该判断语句
+                    scheduled = false;
+                    displayCoords(lastEvent);
+                },250);
+            }
+        });
+    </script>
+</body>
+</html>

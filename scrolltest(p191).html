@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .progress{
+            position: fixed;
+            top: 50px;
+            left: 50px;
+            width: 300px;
+            height: 50px;
+            background-color: lightslategray;
+            border: 3px solid lightsalmon;
+            border-radius: 8px;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .progress>div{
+            background-color: lightgreen;
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress">
+        <div></div>
+    </div>
+</body>
+<script>
+    // window.addEventListener('focus',function(){
+    //     console.log('you back');
+    // })
+    // window.addEventListener('blur',function(){
+    //     console.log('you leave');
+    // })
+    window.onfocus = function(){
+        console.log('you back');
+    }
+    window.onblur = function(){
+        console.log('you leave');
+    }
+</script>
+</html>

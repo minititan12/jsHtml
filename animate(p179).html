@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        p {
+            text-align: center;
+            margin-top: 100px;
+        }
+        span {
+            position:relative; 
+            background-color:red;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        <span>foo</span>
+    </p>
+</body>
+<script>
+    /**
+     * foo红色方块随着页面的重绘做出循环移动的动画
+    */
+    var span = document.querySelector('span');  //用查询选择器选择到span元素
+    var i = 0;
+    function animate(time){
+        span.style.top = Math.sin(time * 0.001) * 30 +'px';         //sin函数算出top循环的值
+        span.style.left = Math.cos(time * 0.001) * 100 +'px';       //cos函数算出left循环的值
+        // span.style.left = (i++) % 200 +'px';
+        requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate); //告诉浏览器在下次准备重绘屏幕时回调animate函数
+</script>
+</html>

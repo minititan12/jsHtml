@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    addEventListener('mousemove',_.debounce(f,500));
+
+    function throttle(f,duration){
+        // var timeout;
+        // return function t(...arg){
+        //     if(!timeout){
+        //         timeout = true;
+        //         setTimeout(function(){
+        //             timeout = false;
+        //             f.bind(t,...args)();
+        //         },duration);
+        //     }
+        // } 
+        var lastRunTime = 0;
+        return function(...args){
+            var now = Date.now();
+            if(now - lastRunTime > duration){
+                lastRunTime = now;
+                return f.call(this,...args);
+            }
+        }
+    }
+    //不在p195中，老师讲的一种debounce函数
+    function debounce(f,duration){
+        var id;
+        return function(...args){
+            clearTimeout(id);
+            id = setTimeout(f.bind(this,...args),duration);
+        };
+    }
+</script>
+</html>

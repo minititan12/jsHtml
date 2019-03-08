@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            height: 50px;
+            width: 500px;
+            background-color: pink;
+            line-height: 50px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>ove</div>
+</body>
+<script>
+    var lastX;
+    var div = document.querySelector('div');
+    div.addEventListener('mousedown',function(event){   //在div上面绑定一个mousedown监听器
+        lastX = event.pageX;                        //获取点击下来的x值
+        addEventListener('mousemove',moved);            //在window(窗口对象)上面添加一个mousemove监听器
+        event.preventDefault();                         //终止默认行为，即文本点击选择功能
+    });
+
+    function moved(event){
+        if(event.which != 1){
+            removeEventListener('mousemove',moved);         //如果不是左键就关闭mousemove监听器
+        }
+        let dist = event.pageX - lastX;                     //获取当前x与之前点击时的x值的差，即偏移距离
+        let newWidth = Math.max(10,div.offsetWidth + dist); //新宽度，即元素宽度减去或加上偏移距离，最小为10
+        newWidth = Math.min(1000,newWidth);
+        div.style.width = newWidth + 'px';                  //把新宽度赋给元素
+        lastX = event.pageX;                                //更新上一个x值(即上一个点击位置的x值)
+    }
+
+</script>
+</html>

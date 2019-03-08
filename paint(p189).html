@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{
+            height: 200px;
+            background-color: pink;
+        }
+        .dot{
+            height: 8px;
+            width: 8px;
+            background-color: white;
+            border-radius: 4px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+<script>
+    function writeLine(x,y){            //点击一下画一条长50的横线
+        let max = x + 50;               //最大的x值
+        while(x <= max){                //x小于最大值时循环加1
+            let dot = document.createElement('div');        //创建一个div元素节点
+            dot.className = 'dot';                          //节点类名为dot
+
+            dot.style.top = (y - 4) + 'px';                 //节点的top绝对位置
+            dot.style.left = (x - 4) + 'px';                //节点的left绝对位置
+
+            document.body.appendChild(dot);                 //把节点放入body中
+            x++;
+        }
+    }
+    document.body.addEventListener('click',function(event){       //在window上面绑click监听器
+        
+        var dot = document.createElement('div');    //创建dot元素节点
+        dot.className = 'dot';                      //dot元素中创建dot的class属性
+        dot.style.left = (event.pageX - 4) + 'px';  //dot元素的绝对left值
+        dot.style.top = (event.pageY - 4) + 'px';   //dot元素的绝对top值
+        document.body.appendChild(dot);             //把dot元素放入body中
+        // console.log(this.appendChild);
+        // writeLine(event.pageX,event.pageY);
+    })
+</script>
+</html>

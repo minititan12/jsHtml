@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>页面的内容与url同步更新，但页面不重新加载</title>
+</head>
+<body>
+    <header>头部</header>
+
+    <div>
+        <ul>
+            <li><a href="/001">001</a></li>
+            <li><a href="/002">002</a></li>
+            <li><a href="/003">003</a></li>
+        </ul>
+
+        <div class="content">
+            主页
+        </div>
+    </div>
+    <footer>页脚</footer>
+</body>
+<script>
+    var ul = document.querySelector('ul');                  //获取ul元素
+    var content = document.querySelector('.content');       //获取类名为content的元素
+
+    ul.addEventListener('click',function(e){                //ul中添加click事件监听
+        e.preventDefault();                                 //阻止默认跳转行为
+        location.hash = e.target.getAttribute('href');      //把点击目标的href属性值赋给当前url中的hash部分
+        content.innerHTML = e.target.innerHTML;             //把目标的文本赋给content
+    })
+
+    window.addEventListener('hashchange',function(e){       //在窗口添加hashchange事件监听,当url中hash部分发生变化时,触发事件
+        content.innerHTML = location.hash.slice(2);         //把url中hash字符串从位置2到末尾切下来赋给content
+    })
+
+    window.onload = e =>{
+        var h = location.hash;
+        if(h){
+            content.innerHTML = h.slice(2);
+        }
+    }
+
+    // ul.addEventListener('click',function(e){
+    //     e.preventDefault();
+    //     var url = e.target.href;                         //获取目标的href属性值
+    //     history.pushState(null,'001',url);               //把历史状态修改为获取的href属性值
+    //     content.innerHTML = e.target.innerHTML;          //把目标文本赋给content文本
+    // })
+
+    // window.addEventListener('popstate',function(e){      //添加popstate事件监听，即有网页历史回退或者前进,都会触发
+    //     var path = location.pathname;                    //获取当前url中的pathname
+    //     var c = path.slice(1);                           
+    //     content.innerHTML = c;                           //把pathname切去第一个字符的字符串赋给content文本
+    // })
+</script>
+</html>

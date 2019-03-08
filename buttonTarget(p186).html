@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button class="foo">0</button>
+        <button class="foo">0</button>
+        <button class="foo">0</button>
+        <button>0</button>
+        <button class="foo">0</button>
+        <button>0</button>
+        <button>0</button>
+        <button class="foo">0</button>
+        <button>0</button>
+        <button>0</button>
+    </div>
+    
+</body>
+<script>
+    var div = document.querySelector('div');
+    div.addEventListener('mousedown',event =>{
+        var t = event.target;
+        if(t.matches('button.foo')){
+            var num = Number(t.textContent);
+            if(event.which == 1){
+                num++;
+                t.innerText = num;          //可以用(event.target.innerText++)直接转换
+            }else if(event.which == 2){
+                if(num > 0){
+                    num--;
+                    t.innerText = num;
+                }
+            }
+        }
+    });
+</script>
+</html>

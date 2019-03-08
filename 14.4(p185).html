@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        p{
+            background-color: red;
+        }
+        button{
+            background-color: tan;
+        }
+    </style>
+</head>
+<body>
+    <p>this is para with a <button>btn</button>.</p>
+</body>
+<script>
+    var para = document.querySelector('p');
+    var btn = document.querySelector('button');
+    btn.addEventListener('mousedown',function(event){
+        console.log('this is a button')
+        if(event.which == 3){
+            event.stopPropagation();
+        }
+    })
+    para.addEventListener('mousedown',function(){
+        console.log('this is a para');
+    })
+</script>
+</html>

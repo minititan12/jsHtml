@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button>tripple click</button>
+</body>
+<script>
+    var btn = document.querySelector('button'); 
+    var lastLastLastTime = 0;                                                   //上上上次单击时间
+    var lastLastTime = 0;                                                       //上上次单击时间
+    var lastTime = 0;                                                           //上一次单击时间
+    btn.addEventListener('click',function(e){
+        var now = Date.now();
+        console.log('click',lastTime,lastLastTime,lastLastLastTime,now);
+        if(now - lastLastTime < 500 && lastLastTime - lastLastLastTime > 3000){ //现在单击的时间和上上次单击的时间差小于500毫秒并且上上次单击和上上上次单击的时间差要超过3秒
+            console.log('trpclick');
+            // lastTime = lastLastTime = 0;
+            // return;
+        }
+        lastLastLastTime = lastLastTime;                                        //点击一次就把时间往前推移
+        lastLastTime = lastTime;
+        lastTime = now;
+    })
+
+
+
+    // var dblclickTime;                                    //双击的时间
+    // btn.addEventListener('click',function(e){
+    //     console.log('click');
+    //     var now = Date.now();
+    //     if(now - dblclickTime < 300){                    //判断当前时间和双击时间的时间差
+    //         console.log('tripple click');
+    //         dblclickTime = 0;
+    //     }
+    // })
+
+    // btn.addEventListener('dblclick',function(e){
+    //      dblclickTime = Date.now();
+    //     console.log('dblclick');
+    // })
+</script>
+</html>
