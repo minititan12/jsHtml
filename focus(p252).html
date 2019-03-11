@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" onmouseover="this.focus()">      <!-- 鼠标hover就focus -->
+    <input type="text" id="search">
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded',e => {         //在初始html文档完全加载解析完成后，才会被触发
+        var target = document.querySelector('#search');         //找到要被聚焦的元素
+        if(document.activeElement.tagName == 'BODY' && target){ //聚焦的元素在body上时，并且找到了要被聚焦的元素，就让那个元素被聚焦
+            target.focus();
+        }
+    })
+</script>
+</html>

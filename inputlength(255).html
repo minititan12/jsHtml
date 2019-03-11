@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">Length:<span>0</span>    
+</body>
+<script>
+    var text = document.querySelector('input');         //获取input元素
+    var num = document.querySelector('span');           //获取统计length元素
+    text.addEventListener('input',e =>{                 //添加input事件监听
+        // if(text.value){
+        //     var len = text.value.length;
+        //     num.innerText = len;
+        // }else{
+        //     num.innerText = '0';
+        // }        
+        num.textContent = text.value.length;            
+    })
+</script>
+</html>

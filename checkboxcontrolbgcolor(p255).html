@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        /* 直接改变checkbox的样式有些牵强，可以使用label替代checkbox */
+        #purple{                            
+            width: 30px;
+            height: 30px;
+            /* border-radius: 10px; */
+            border: 5px solid red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="purple">
+</body>
+<script>
+    var checkbox = document.querySelector('#purple');
+    // var s = window.getComputedStyle(checkbox,null);
+    checkbox.addEventListener('change',e =>{
+        document.body.style.backgroundColor = checkbox.checked?'mediumpurple':'';
+    })
+</script>
+</html>
