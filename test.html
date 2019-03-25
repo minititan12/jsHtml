@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <style>
-    </style>
 </head>
 <body>
+    
 </body>
-<script>
-    function debounce(f,duration){
-        var timeout = false;
-        return function(){
-            if(!timeout){
-                timeout = true;
-                setTimeout(function(){
-                    f;
-                    timeout = false;
-                },duration)
-            }
-        }
-    }
-</script>
+    <script>
+    sock = dgram.createSocket('udp4')
+
+    sock.bind(10086)//绑定端口
+    sock.setBoardcase(true)//设置广播发送（当使用广播地址时）
+    sock.addMembership('225.0.0.1')//加入频道
+
+    sock.on('message', (data,info)=>{
+        console.log(data.toString(),info);
+    })
+    // sock.on('message',console.log);
+
+    sock.send('hello', 10086, '255.255.255.255')
+
+    </script>
 </html>

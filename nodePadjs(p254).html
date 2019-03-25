@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <textarea id="nodepad" cols="30" rows="10"></textarea>
+</body>
+<script>
+    var pad = document.querySelector('#nodepad');
+    document.addEventListener('keydown',e =>{                                           //只有在document上面绑定keydown，点击F5时，阻止默认行为才有效
+        var timeStr = new Date().toString();                                            //获取时间
+        if(e.target.nodeName == 'TEXTAREA'){                                            //如果事件目标在textarea上
+            if(e.keyCode == 116){                           
+                var start = pad.selectionStart;                                         
+                var end = pad.selectionEnd;                                                 
+                pad.value = pad.value.slice(0,start) + timeStr + pad.value.slice(end);  //截取0到start的字符串，end到最后的字符串，在中间插入timeStr
+                pad.selectionStart = pad.selectionEnd = start + timeStr.length;         //把光标放到插入后的末尾
+                e.preventDefault();
+            }
+        }
+    })
+
+</script>
+</html>

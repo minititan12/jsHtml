@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FileReader</title>
+</head>
+<body>
+    <input type="file" id="text" multiple>
+</body>
+
+    <script>
+        var text = document.querySelector('#text');
+        var reader = new FileReader();                      //新建FileReader对象，用来读取文件
+
+        reader.addEventListener('load',function(){          //加载完成时，输出选择文件的文本格式
+            console.log(reader.result);
+        });
+
+        text.addEventListener('change',function(){          //当选择的文件更改时，判断选择文件的length，加载最后一个文件
+            var len = text.files.length;
+            console.log(len);
+            if(len > 0){
+                reader.readAsText(text.files[len-1]);
+            }
+        })
+    </script>
+</html> 

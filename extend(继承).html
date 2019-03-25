@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+</body>
+<script>
+
+
+//构造函数继承
+    function animal(){}
+    animal.prototype.species = '动物';
+
+    function cat(name,color){
+        this.name = name;
+        this.color = color;
+    }
+
+    function extend(child,parent){                  //继承的函数
+        var f = function(){};                       //创建一个空函数f()
+        f.prototype = parent.prototype;             //把parent的原型给到f()的原型上
+        child.prototype = new f();                  //把实例化的f()对象给到child的原型上
+        child.prototype.constructor = child;        //child的构造函数还是原来child的构造函数
+        child.uber = parent.prototype;
+    }
+
+
+//
+//非构造函数继承
+
+    var chinese = {
+        nation:'中国',
+        province:['福建','广东','广西','云南']
+    }
+
+    var doctor = {
+        career:'医生'
+    }
+
+//object()方法
+
+    function object(o){
+        function F(){};
+        F.prototype = o;
+        return new F();
+    }
+
+    // var doc = object(chinese);
+    // doc.career = '医生';
+    // console.log(doc.nation);
+
+//浅拷贝(extendcopy)
+    function extendCopy(p){
+        var c = {};
+        for(var i in p){
+            c[i] = p[i];
+        }
+        c.uber = p;
+        return c;
+    }
+
+    // var doc2 = extendCopy(chinese);
+    // c.career = '医生';
+    // console.log(doc2.nation);
+    //浅拷贝有个问题,如果父对象的属性等于一个数组或者一个对象时，
+    //子对象获得的只是一个内存地址，因此存在父对象被篡改的可能
+    // doc2.province.push('浙江');
+    //console.log(chinese.province)                  //结果就是['福建','广东','广西','云南','浙江']
+
+//深拷贝(deepCopy)采用递归的方式继承
+    function deepCopy(p,c){
+        var c = c || {};
+        for(let i in p){                                        //不管父对象属性上的值是不是对象,都能很好的拷贝,也不会影响到父对象
+            if(typeof p[i] == 'object'){
+                c[i] = (p[i].constructor === Array) ? [] : {};
+                deepCopy(p[i],c[i]);
+            }else{
+                c[i] = p[i];
+            }
+        }
+
+        return c;
+    }
+
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>generator function</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //生成器函数和普通函数的区别：
+    //1.在function后面有一个*号 
+    //2.用yield来返回值
+    //3.调用函数名.next()来得到下一个值
+    //4.每次调用next(),函数重新开始运行,函数只执行到下一个yield的语句
+    //5.既不在调用栈中,函数又处于暂停，浏览器记录执行到哪一行
+    //6.所以field相当于生成器函数中的暂停器,可以多次调用
+    //7.next()传的参数，就是上一次暂停位置返回的值
+    //8.调用return(),即让生成器函数在当前位置直接返回，return()参数就是函数返回值
+    //9.调用throw(),即让生成器函数直接抛出错误，throw()参数即抛出的错误值
+    //10.for..of语句可以遍历生成器,即每次next()出来的值
+    //生成器函数可以在其中调用其他的生成器函数
+    function * fibb(n){                 //斐波那契数列生成器
+        var a = 0;
+        var b = 1;
+        for(var i = 0; i < n; i++){
+            b = a + b;
+            a = b - a;
+            yield a;
+        }
+    }
+
+    function * chars(){
+        yield a;
+        yield b;
+        yield c;
+        yield d;
+    }
+
+    function * nums(){
+        yield 1;
+        yield 2;
+        yield 3;
+        yield 4;
+        yield 5;
+    }
+    
+    //可以调用其他的生成器函数
+    function hexdigits(){
+        yield * nums();                 //一定要在前面加*号，不然就是调用生成器了
+        yield * chars();
+    }
+
+</script>
+</html>

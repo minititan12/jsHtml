@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iterator(迭代器)</title>
+</head>
+<body>
+    
+</body>
+<script>
+    //for..of的函数实现
+    function forof(iterable,action){
+        if(typeof iterable.next !== 'function'){
+            iterable = iterable[Symbol.iterator]();
+        }
+        var generated = iterable.next();
+        while(!generated.done){
+            var ret = action(generated.value);
+            if(ret === false){
+                iterable.return();
+                break;
+            }
+            generated = generated.next();
+        }
+    }
+
+    //Symbol.iterator 为每一个对象定义了默认的迭代器。该迭代器可以被 for...of 循环使用。
+    //修改object的迭代器。只要对象的迭代器(函数)是可以返回一个对象，
+    //包含一个next属性的函数,且这函数可以返回一个有value属性和done属性的对象
+    //则可以用for..of遍历出属性值
+    Object.prototype[Symbol.iterator] = function(){
+        var keys = Object.keys(this)
+        var i = 0
+        return {
+            next: () => {
+            return {
+                value: this[keys[i++]],             //每次调用都返回下一个key的value
+                done: i > keys.length
+                }   
+            }
+        }
+    }
+
+    //修改object的迭代器(用生成器函数)
+    Object.prototype[Symbol.iterator] = function * (){      //修改object原型上的[Symbol.iterator],让对象变成可迭代的,即用生成器函数来实现值的获取
+        for(var key in this){
+            if(this.hasOwnProperty(key)){
+                var val = this[key];
+                yield val;
+            }
+        }
+    }
+
+    //修改后的示例
+    var obj = {a:1, b:2, c:3};                      
+    for(var val of obj){                           
+        console.log(val);
+    }
+
+    //修改Number的迭代器(用生成器函数)
+    Number.prototype[Symbol.iterator] = function * (){
+        for(var i = 1; i <= this; i++){
+            yield i;
+        }
+    }
+
+    //修改Number的迭代器(用普通函数)
+    Number.prototype[Symbol.iterator] = function(){
+        var num = 1;
+        return {
+            next: () =>{
+                return {
+                    value: num++,
+                    done: num > this + 1
+                }
+            }
+        }
+    }
+
+    //修改后示例
+    for(var num of 10){
+        console.log(num);
+    }
+</script>
+</html>

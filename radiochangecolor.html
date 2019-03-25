@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="radio" name="color" value="red">red
+    <input type="radio" name="color" value="blue">blue
+    <input type="radio" name="color" value="green">green
+</body>
+<script>
+    var buttons = document.getElementsByName('color');
+
+    for(var i = 0; i < buttons.length; i++){                            //这里用let，如果用var，下面的函数需要用闭包来实现
+        // buttons[i].addEventListener('change',function(e){
+        //     document.body.style.backgroundColor = buttons[i].value;
+        // })
+
+        // (function(n){
+        //     buttons[n].addEventListener('change',function(e){            //这里用的是闭包的方式,创建了一个匿名函数并立即执行,使每一个name为color的元素上都添加了一个对应i值的监听事件(私有的i值)
+        //         document.body.style.backgroundColor = buttons[n].value;
+        //     })
+        // }(i))
+        add(i);
+    }
+
+    function add(n){                                                //给buttons添加监听函数,这样每个添加的监听器都有一个私有的n值
+        buttons[n].addEventListener('change',function(e){            
+            document.body.style.backgroundColor = buttons[n].value;
+        })
+    }
+
+    //闭包的一个示例
+    function make_pow(m){                       //闭包就是一个携带状态的函数
+        return function(x){                     //返回一个携带状态(已经清楚是m次方)的函数
+            return Math.pow(x,m);           
+        }
+    }
+
+    //调用方式
+    // var pow2 = make_pow(2);
+
+    // console.log(pow2(4));       //16
+    // console.log(pow2(3));       //9
+</script>
+</html>
